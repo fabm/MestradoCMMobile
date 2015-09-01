@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".AcercaActivity"
+        >
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acerca_titulo"
+            android:id="@+id/acercaTvTitulo"
+            android:layout_gravity="center_horizontal"
+            android:textSize="40sp"
+            android:textColor="@color/background_floating_material_dark"
+            android:layout_marginTop="10dp"/>
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/acercaString"
+            android:id="@+id/acercaTvAcerca"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:height="400dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/ok"
+            android:id="@+id/acercaBtOk"
+            android:layout_gravity="center_horizontal"/>
+</LinearLayout>

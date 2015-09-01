@@ -1,0 +1,131 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="3">
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Selecionando produto"
+                android:id="@+id/textView"
+                android:gravity="center_horizontal"
+                android:textStyle="bold|italic"
+                android:textSize="30sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="20dp"
+                />
+
+        <ListView
+                android:id="@+id/aspLv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+    </LinearLayout>
+
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1"
+            android:id="@+id/spaTable"
+            android:visibility="gone">
+
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Produto:"
+                    android:id="@+id/tvProdutoSelLabel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Teste"
+                    android:id="@+id/sapTvNome"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"/>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/tvQuantidadeLabel"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Quantidade:"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="right"/>
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/etQuantidadeValue"
+                    android:layout_column="1"/>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Preço:"
+                    android:id="@+id/tvPrecoLabel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="0.50€"
+                    android:id="@+id/sapTvPreco"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"/>
+        </TableRow>
+
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@android:string/ok"
+                    android:id="@+id/spaBtOk"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_span="2"
+                    android:enabled="false"/>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sincronizar"
+            android:id="@+id/syncTvTitulo"
+            android:gravity="center_horizontal"
+            android:textStyle="bold|italic"
+            android:textSize="40sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="60dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/syncTvLogin"
+            android:layout_gravity="left"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"/>
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/syncEtLogin"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:id="@+id/syncTvPassword"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal|left"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/syncEtPassword"/>
+
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar password?"
+            android:id="@+id/syncCbGuardar"
+            android:checked="false"/>
+
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btRegistarLabel"
+            android:id="@+id/btRegistarSincronizar"
+            android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sync_lb_sincronizar"
+                    android:id="@+id/syncBtSync"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@android:string/cancel"
+                        android:id="@+id/syncBtCancel"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"/>
+        </LinearLayout>
+
+</LinearLayout>

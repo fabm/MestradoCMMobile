@@ -1,0 +1,256 @@
+{
+  "localidades": {
+    "localidade": [
+      {
+        "id": 5334,
+        "localidade": "FIGUEIRA DA FOZ",
+        "codigoPostal": 3080000
+      },
+      {
+        "id": 5335,
+        "localidade": "FIGUEIRA DA FOZ",
+        "codigoPostal": 3080653
+      },
+      {
+        "id": 5336,
+        "localidade": "FIGUEIRA DE LORVÃO",
+        "codigoPostal": 3360053
+      },
+      {
+        "id": 5337,
+        "localidade": "FIGUEIRA E BARROS",
+        "codigoPostal": 7480351
+      },
+      {
+        "id": 5338,
+        "localidade": "FIGUEIRA LMG",
+        "codigoPostal": 5100530
+      },
+      {
+        "id": 5339,
+        "localidade": "FIGUEIRA PNF",
+        "codigoPostal": 4575242
+      },
+      {
+        "id": 5340,
+        "localidade": "FIGUEIRAS",
+        "codigoPostal": 4620000
+      },
+      {
+        "id": 5341,
+        "localidade": "FIGUEIREDO AMR",
+        "codigoPostal": 4720000
+      },
+      {
+        "id": 5342,
+        "localidade": "FIGUEIREDO BRG",
+        "codigoPostal": 4700645
+      },
+      {
+        "id": 5343,
+        "localidade": "FIGUEIREDO DAS DONAS",
+        "codigoPostal": 3670102
+      },
+      {
+        "id": 5344,
+        "localidade": "FIGUEIREDO DE ALVA",
+        "codigoPostal": 3660114
+      },
+      {
+        "id": 5345,
+        "localidade": "FIGUEIREDO GMR",
+        "codigoPostal": 4800415
+      },
+      {
+        "id": 5346,
+        "localidade": "FIGUEIREDO SRT",
+        "codigoPostal": 6100406
+      },
+      {
+        "id": 5347,
+        "localidade": "FIGUEIRÓ",
+        "codigoPostal": 4590000
+      },
+      {
+        "id": 5348,
+        "localidade": "FIGUEIRÓ DA GRANJA",
+        "codigoPostal": 6370041
+      },
+      {
+        "id": 5349,
+        "localidade": "FIGUEIRÓ DA SERRA",
+        "codigoPostal": 6290071
+      },
+      {
+        "id": 5350,
+        "localidade": "FIGUEIRÓ DO CAMPO",
+        "codigoPostal": 3130040
+      },
+      {
+        "id": 5351,
+        "localidade": "FIGUEIRÓ DOS VINHOS",
+        "codigoPostal": 3260000
+      },
+      {
+        "id": 5352,
+        "localidade": "FIGUEIRÓ (SANTIAGO)",
+        "codigoPostal": 4615000
+      },
+      {
+        "id": 5353,
+        "localidade": "FIGUEIROS",
+        "codigoPostal": 2550305
+      },
+      {
+        "id": 5415,
+        "localidade": "FRÁGUAS RMR",
+        "codigoPostal": 2040153
+      },
+      {
+        "id": 5416,
+        "localidade": "FRÁGUAS VNP",
+        "codigoPostal": 3650020
+      },
+      {
+        "id": 5586,
+        "localidade": "GUADALUPE",
+        "codigoPostal": 9880021
+      },
+      {
+        "id": 5587,
+        "localidade": "GUARDA",
+        "codigoPostal": 6300000
+      },
+      {
+        "id": 5588,
+        "localidade": "GUARDIZELA",
+        "codigoPostal": 4765000
+      },
+      {
+        "id": 5589,
+        "localidade": "GUEIFÃES",
+        "codigoPostal": 4470000
+      },
+      {
+        "id": 5590,
+        "localidade": "GUERAL",
+        "codigoPostal": 4750000
+      },
+      {
+        "id": 5591,
+        "localidade": "GUETIM",
+        "codigoPostal": 4500000
+      },
+      {
+        "id": 5592,
+        "localidade": "GUIA ABF",
+        "codigoPostal": 8200000
+      },
+      {
+        "id": 5593,
+        "localidade": "GUIA PBL",
+        "codigoPostal": 3100863
+      },
+      {
+        "id": 5594,
+        "localidade": "GUIÃES",
+        "codigoPostal": 5000111
+      },
+      {
+        "id": 5595,
+        "localidade": "GUIDÕES",
+        "codigoPostal": 4785000
+      },
+      {
+        "id": 5596,
+        "localidade": "GUIFÕES",
+        "codigoPostal": 4460000
+      },
+      {
+        "id": 5597,
+        "localidade": "GUILHABREU",
+        "codigoPostal": 4480000
+      },
+      {
+        "id": 5598,
+        "localidade": "GUILHADESES",
+        "codigoPostal": 4970195
+      },
+      {
+        "id": 5599,
+        "localidade": "GUILHEIRO",
+        "codigoPostal": 3640700
+      },
+      {
+        "id": 5600,
+        "localidade": "GUILHOFREI",
+        "codigoPostal": 4850188
+      },
+      {
+        "id": 5601,
+        "localidade": "GUILHUFE",
+        "codigoPostal": 4560144
+      },
+      {
+        "id": 5602,
+        "localidade": "GUIMARÃES",
+        "codigoPostal": 4800000
+      },
+      {
+        "id": 5603,
+        "localidade": "GUIMARÃES",
+        "codigoPostal": 4810000
+      },
+      {
+        "id": 5604,
+        "localidade": "GUIMAREI",
+        "codigoPostal": 4780000
+      },
+      {
+        "id": 5605,
+        "localidade": "GUISANDE BRG",
+        "codigoPostal": 4700655
+      },
+      {
+        "id": 5606,
+        "localidade": "GUISANDE VFR",
+        "codigoPostal": 4535000
+      },
+      {
+        "id": 5607,
+        "localidade": "GULPILHARES",
+        "codigoPostal": 4405000
+      },
+      {
+        "id": 5626,
+        "localidade": "INGUIAS",
+        "codigoPostal": 6250162
+      },
+      {
+        "id": 5643,
+        "localidade": "JUGUEIROS",
+        "codigoPostal": 4610000
+      },
+      {
+        "id": 5666,
+        "localidade": "LAGOA (SÃO MIGUEL)",
+        "codigoPostal": 9560000
+      },
+      {
+        "id": 5857,
+        "localidade": "LOUSADA (SÃO MIGUEL)",
+        "codigoPostal": 4620000
+      },
+      {
+        "id": 5905,
+        "localidade": "MAGUEIJA",
+        "codigoPostal": 5100603
+      },
+      {
+        "id": 5907,
+        "localidade": "MAIA (SÃO MIGUEL)",
+        "codigoPostal": 9625000
+      }
+    ]
+  }
+}

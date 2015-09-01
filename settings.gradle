@@ -1,3 +1,2 @@
-include ':app'
-include 'DaoGenerator'
+include ':app', ':robolectric-tests',':dao-generator'
 

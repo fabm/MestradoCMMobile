@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Registo"
+            android:id="@+id/tvRegisto"
+            android:layout_gravity="center_horizontal"/>
+
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/svRegisto"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nome"
+                    android:id="@+id/tvNomeRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etNomeRegisto"
+                    android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="data de nascimento"
+                    android:id="@+id/tvDataNascimentoRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:id="@+id/etDataNascimentoRegisto"
+                    android:layout_gravity="center_horizontal"
+                    android:focusable="false"
+                    android:editable="false"
+                    android:clickable="true"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="morada"
+                    android:id="@+id/tvMoradaRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etMoradaRegisto"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nº de porta"
+                    android:id="@+id/tvNumPortaregisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etNumPortaRegisto"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="localidade"
+                    android:id="@+id/tvLocalidadeRegisto"
+                    android:padding="10dp"/>
+
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etLocalidadeRegisto"
+                        android:layout_gravity="center_horizontal"
+                        android:editable="false"
+                        android:layout_weight="1"/>
+
+                <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/ivLocalidade"
+                        android:src="@drawable/abc_ic_search_api_mtrl_alpha"/>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="contacto"
+                    android:id="@+id/tvContactoRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etContactoRegisto"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="email"
+                    android:id="@+id/tvEmailRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
+                    android:id="@+id/etMailRegisto"
+                    android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="contribuinte"
+                    android:id="@+id/tvContribuinteRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etContribuinteRegisto"
+                    android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="login"
+                    android:id="@+id/tvLoginRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etLoginRegisto"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="passowrd"
+                    android:id="@+id/tvPasswordRegisto"
+                    android:padding="10dp"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:id="@+id/etPasswordRegisto"
+                    android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/ok"
+            android:id="@+id/btOkRegistar"
+            android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>

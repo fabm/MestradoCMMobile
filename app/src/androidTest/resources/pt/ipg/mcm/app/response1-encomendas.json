@@ -1,0 +1,152 @@
+{
+  "type": "resMinhasEncomendasDetalhe",
+  "listaEncomendasDetalheXmls": [
+    {
+      "id": 49,
+      "dataCriacao": "2015-01-28T23:41:46Z",
+      "estado": 0,
+      "produtosEncomendados": [
+        {
+          "idProduto": 1,
+          "quantidade": 2,
+          "preco": 49
+        },
+        {
+          "idProduto": 2,
+          "quantidade": 2,
+          "preco": 49
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "dataCriacao": "2015-01-28T23:35:22Z",
+      "estado": 0,
+      "produtosEncomendados": [
+        {
+          "idProduto": 1,
+          "quantidade": 1,
+          "preco": 48
+        },
+        {
+          "idProduto": 2,
+          "quantidade": 2,
+          "preco": 48
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "dataCriacao": "2015-01-27T23:33:33Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 36,
+      "dataCriacao": "2015-01-27T23:36:41Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 37,
+      "dataCriacao": "2015-01-27T23:37:38Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 38,
+      "dataCriacao": "2015-01-27T23:38:52Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 39,
+      "dataCriacao": "2015-01-27T23:43:47Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 40,
+      "dataCriacao": "2015-01-27T23:47:53Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 41,
+      "dataCriacao": "2015-01-28T22:31:42Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 42,
+      "dataCriacao": "2015-01-28T22:33:27Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 43,
+      "dataCriacao": "2015-01-28T22:39:48Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 44,
+      "dataCriacao": "2015-01-28T22:50:35Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 45,
+      "dataCriacao": "2015-01-28T22:50:39Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 46,
+      "dataCriacao": "2015-01-28T22:53:07Z",
+      "estado": 0,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 47,
+      "dataCriacao": "2015-01-28T22:59:35Z",
+      "estado": 0,
+      "produtosEncomendados": [
+        {
+          "idProduto": 1,
+          "quantidade": 1,
+          "preco": 47
+        },
+        {
+          "idProduto": 2,
+          "quantidade": 2,
+          "preco": 47
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "dataCriacao": "2015-02-09T22:16:16Z",
+      "estado": 0,
+      "produtosEncomendados": [
+        {
+          "idProduto": 1,
+          "quantidade": 1,
+          "preco": 55
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "dataCriacao": "2015-01-24T23:42:52Z",
+      "estado": 4,
+      "produtosEncomendados": []
+    },
+    {
+      "id": 34,
+      "dataCriacao": "2015-01-24T23:43:51Z",
+      "estado": 4,
+      "produtosEncomendados": []
+    }
+  ]
+}
