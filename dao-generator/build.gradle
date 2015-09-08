@@ -6,7 +6,7 @@ repositories {
     mavenCentral()
 }
 
-def pac = 'pt.ipg.mcm.entities';
+def pac = 'pt.ipg.mcm.app.bd';
 def dest = project(':app').file('./src/main/java-gen')
 
 task deleteEntities<<{
@@ -14,7 +14,7 @@ task deleteEntities<<{
     delete fileTree(pathToEntities)
 }
 
-task generateDaos(type: JavaExec, dependsOn: classes) {
+task generateDaos(type: JavaExec, dependsOn: deleteEntities) {
     println 'generating daos'
     main = "pt.ipg.mcm.Generator"
     mainClassName = "pt.ipg.mcm.Generator"

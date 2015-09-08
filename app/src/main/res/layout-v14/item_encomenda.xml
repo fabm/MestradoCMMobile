@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="60dp"
+        android:layout_width="match_parent">
+
+
+    <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="Data de entrega"
+              android:id="@+id/ieLbDataEntrega" android:layout_column="0" android:layout_gravity="left|right"
+              android:layout_marginLeft="20dp" android:layout_row="0" android:gravity="center_vertical"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="01-01-2015"
+              android:id="@+id/leVlDataEntrega" android:layout_column="1" android:layout_marginLeft="20dp"
+              android:layout_row="0" android:gravity="center_vertical" android:layout_gravity="left"/>
+    <TextView
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="A aguardar entrega"
+            android:id="@+id/ieVlStatus" android:layout_row="0" android:layout_column="2" android:layout_rowSpan="2"
+            android:layout_gravity="center_vertical" android:singleLine="false" android:gravity="right"
+            android:paddingRight="10dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="Preço total"
+              android:id="@+id/ieLbPrecoTotal" android:layout_column="0" android:layout_gravity="left|right"
+              android:layout_marginLeft="20dp" android:layout_row="1" android:gravity="center_vertical"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="1.00 €"
+              android:id="@+id/leVlPrecoTotal" android:layout_column="1" android:layout_marginLeft="20dp"
+              android:layout_row="1" android:gravity="center_vertical" android:layout_gravity="left"/>
+</GridLayout>

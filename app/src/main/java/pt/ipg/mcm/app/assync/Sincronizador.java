@@ -2,6 +2,7 @@ package pt.ipg.mcm.app.assync;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Base64;
 import de.greenrobot.dao.query.CloseableListIterator;
 import pt.ipg.mcm.app.bd.Categoria;
 import pt.ipg.mcm.app.bd.DaoMaster;
@@ -88,7 +89,7 @@ public class Sincronizador {
           produto.setNome(produtoRest.getNome());
           produto.setPrecoActual(produtoRest.getPrecoUnitario());
           if (produtoRest.getFoto() != null) {
-            produto.setFoto(produtoRest.getFoto().getBytes());
+            produto.setFoto(Base64.decode(produtoRest.getFoto().getBytes(),Base64.DEFAULT));
           }
           produto.setSync(true);
           session.getProdutoDao().insertOrReplace(produto);
@@ -97,10 +98,13 @@ public class Sincronizador {
         for (EncomendaDetalheRest encomendaDetalheRest : getMinhasEncomendasRest.getEncomendaDetalheRestList()) {
           Encomenda encomenda = new Encomenda();
           encomenda.setServerId(encomendaDetalheRest.getId());
+          encomenda.setEstado(encomendaDetalheRest.getEstado());
+          encomenda.setObservacoes(encomendaDetalheRest.getObservacoes());
           long precoTotal = 0L;
 
           try {
             encomenda.setDataEntrega(new DateHelper(DateHelper.Format.COMPACT).toDate(encomendaDetalheRest.getDataEntrega()));
+            encomenda.setDataCriacao(new DateHelper(DateHelper.Format.COMPACT).toDate(encomendaDetalheRest.getDataCriacao()));
           } catch (ParseException e) {
             throw new IllegalStateException(e);
           }

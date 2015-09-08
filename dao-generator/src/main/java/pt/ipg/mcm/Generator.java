@@ -42,6 +42,9 @@ public class Generator {
     encomenda.addLongProperty("serverId");
     encomenda.addLongProperty("precoTotal");
     encomenda.addBooleanProperty("sync");
+    encomenda.addDateProperty("dataCriacao");
+    encomenda.addStringProperty("observacoes");
+    encomenda.addIntProperty("estado");
 
     Entity encomendaProduto = schema.addEntity("EncomendaProduto");
     encomendaProduto.addIdProperty();

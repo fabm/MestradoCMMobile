@@ -11,12 +11,13 @@ import pt.ipg.mcm.app.R;
 import pt.ipg.mcm.app.bd.DaoMaster;
 import pt.ipg.mcm.app.bd.DaoSession;
 import pt.ipg.mcm.app.bd.Encomenda;
-import pt.ipg.mcm.app.bd.Produto;
 import pt.ipg.mcm.app.instances.App;
+import pt.ipg.mcm.app.util.Formatter;
 import pt.ipg.mcm.calls.client.DateHelper;
 
-import java.math.BigDecimal;
 import java.util.List;
+
+import static pt.ipg.mcm.app.util.Formatter.centsToEuros;
 
 public class ListAdapterEncomendas extends BaseAdapter {
 
@@ -52,14 +53,14 @@ public class ListAdapterEncomendas extends BaseAdapter {
       LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       view = inflater.inflate(R.layout.item_encomenda, parent, false);
     }
-    TextView data = (TextView) view.findViewById(R.id.ieVlDataEntrega);
-    TextView preco = (TextView) view.findViewById(R.id.ieVlDataEntrega);
+    TextView data = (TextView) view.findViewById(R.id.leVlDataEntrega);
+    TextView preco = (TextView) view.findViewById(R.id.leVlPrecoTotal);
 
     Encomenda item = (Encomenda) getItem(pos);
 
 
-    data.setText(new DateHelper(DateHelper.Format.COMPACT).toString(item.getDataEntrega()));
-    preco.setText(new BigDecimal(item.getPrecoTotal()).divide(new BigDecimal(100)).toString());
+    data.setText(Formatter.dateSimpleToString(item.getDataEntrega()));
+    preco.setText(centsToEuros(item.getPrecoTotal()));
 
     return view;
   }

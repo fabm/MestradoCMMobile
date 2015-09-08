@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:textAppearance="?android:attr/textAppearanceLarge" android:text="As minhas encomendas"
+              android:id="@+id/dmeaLbTitulo" android:layout_gravity="center_horizontal"/>
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/dmeaLv"
+            android:layout_gravity="center_horizontal" android:layout_weight=".8"/>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+    <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="200dp" android:layout_marginTop="5dp" android:layout_margin="5dp">
+        <TextView android:layout_width="100dp" android:layout_height="30dp"
+                  android:text="Estado" android:id="@+id/dmeaLbEstado" android:layout_row="2"
+                  android:layout_column="0" android:gravity="center_vertical|right"/>
+        <TextView android:layout_width="100dp" android:layout_height="30dp" android:text="Data de criação"
+                  android:id="@+id/dmeaLbDataCriacao" android:layout_row="0" android:layout_column="0"
+                  android:gravity="center_vertical|right"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="2015-01-01"
+                  android:id="@+id/dmeaVlDataCriacao" android:layout_row="0" android:layout_column="1"
+                  android:paddingLeft="10dp" android:gravity="center_vertical"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="A aguardar"
+                  android:id="@+id/dmeaVlEstado" android:layout_row="2" android:layout_column="1"
+                  android:paddingLeft="10dp" android:gravity="center_vertical"/>
+        <TextView android:layout_width="100dp" android:layout_height="30dp" android:text="Total"
+                  android:id="@+id/dmeaLbTotal" android:layout_row="0" android:layout_column="2"
+                  android:gravity="center_vertical|right" android:layout_rowSpan="3"
+                  android:layout_gravity="center_vertical" android:textAppearance="?android:attr/textAppearanceLarge"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="50 €"
+                  android:id="@+id/dmeaVlTotal" android:layout_row="0" android:layout_column="3"
+                  android:paddingLeft="10dp" android:gravity="center_vertical" android:layout_rowSpan="3"
+                  android:layout_gravity="center_vertical" android:textAppearance="?android:attr/textAppearanceLarge"/>
+        <TextView
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="Data de entrega"
+                android:id="@+id/dmeaLbDataEntrega" android:layout_row="1" android:layout_column="0"
+                android:gravity="center_vertical|right"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="30dp"
+                  android:text="2015-01-01" android:id="@+id/dmeaVlDataEntrega" android:layout_row="1"
+                  android:layout_column="1" android:paddingLeft="10dp" android:gravity="center_vertical"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cancelar encomenda"
+                android:id="@+id/dmeaBtCancelar" android:layout_row="4" android:layout_column="1"
+                android:layout_gravity="center_horizontal" android:layout_columnSpan="2"
+                android:layout_marginBottom="10dp"/>
+    </GridLayout>
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import pt.ipg.mcm.app.R;
+import pt.ipg.mcm.app.adapters.SynchronizationAdapter;
 import pt.ipg.mcm.app.assync.AsyncOfflineTables;
 import pt.ipg.mcm.app.grouped.resources.Constants;
 import pt.ipg.mcm.app.instances.App;
@@ -20,30 +21,27 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class SincronizarActivity extends Activity implements ActivityListener<Boolean> {
-  private AsyncOfflineTables asyncOfflineTables;
+public class SincronizarActivity extends Activity {
   private CheckBox guardarCheckBox;
-  private SharedPreferences sharedPreferences;
-  private ProgressDialog progressDialog;
+  private SynchronizationAdapter synchronizationAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    sharedPreferences = getSharedPreferences(Constants.SHARED_SYNC, MODE_PRIVATE);
     setContentView(R.layout.activity_sync);
-
+    synchronizationAdapter = new SynchronizationAdapter(this);
 
     final EditText loginEditText = (EditText) findViewById(R.id.syncEtLogin);
 
     final EditText passwordEditText = (EditText) findViewById(R.id.syncEtPassword);
     guardarCheckBox = (CheckBox) findViewById(R.id.syncCbGuardar);
-    guardarCheckBox.setChecked(sharedPreferences.getBoolean(Constants.User.GUARDAR_LOGIN_PASSWORD, false));
+    guardarCheckBox.setChecked(synchronizationAdapter.guardarPassword());
 
-    String loginStr = sharedPreferences.getString("login", "");
+    String loginStr = synchronizationAdapter.getSharedLogin();
     if (!loginStr.isEmpty()) {
       loginEditText.setText(loginStr);
-      passwordEditText.setText(sharedPreferences.getString("password", ""));
+      passwordEditText.setText(synchronizationAdapter.getSharedPassword());
     }
 
 
@@ -70,47 +68,10 @@ public class SincronizarActivity extends Activity implements ActivityListener<Bo
 
         String login = loginEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        long sync = sharedPreferences.getLong(Constants.SYNC_INDEX, 0);
         if (guardarCheckBox.isChecked()) {
-          SharedPreferences.Editor editor = sharedPreferences.edit();
-          editor.putString("login", login);
-          editor.putString("password", password);
-          editor.putBoolean(Constants.User.GUARDAR_LOGIN_PASSWORD, true);
-          editor.commit();
+          synchronizationAdapter.authenticationValuesSave(login,password,true);
         }
-
-        asyncOfflineTables = new AsyncOfflineTables(SincronizarActivity.this, sync) {
-
-          @Override
-          protected void onPreExecute() {
-            progressDialog = new ProgressDialog(SincronizarActivity.this);
-            progressDialog.setMessage("A sincronizar");
-            progressDialog.setProgress(0);
-            progressDialog.setIndeterminate(true);
-            progressDialog.show();
-          }
-
-          @Override
-          protected void onPostExecute(long sync) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putLong(Constants.SYNC_INDEX, sync);
-            editor.commit();
-            callOnSuccess();
-          }
-
-          @Override
-          protected void onProgressUpdate(String... values) {
-            progressDialog.setMessage(values[0]);
-          }
-
-          @Override
-          protected void onPostExecute(String error) {
-            progressDialog.dismiss();
-            callOnError(error);
-          }
-        };
-          asyncOfflineTables.execute(login, password);
-
+        synchronizationAdapter.sync();
       }
     });
   }
@@ -129,43 +90,4 @@ public class SincronizarActivity extends Activity implements ActivityListener<Bo
     }
   }
 
-  @Override
-  public void call(Boolean finalizar) {
-
-    if (finalizar) {
-      if (!guardarCheckBox.isChecked()) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("login", "");
-        editor.putString("password", "");
-        editor.commit();
-      }
-      finish();
-    }
-  }
-
-  public void callOnError(String error) {
-    alerteMessage(error, false);
-  }
-
-  public void callOnSuccess() {
-    alerteMessage("Sincronização feita com sucesso", true);
-  }
-
-  private void alerteMessage(String message, final boolean finish) {
-    AlertDialog.Builder alertBuilder = App.get().getAlertDialogBuilder(SincronizarActivity.this);
-    alertBuilder.setMessage(message);
-    AlertDialog alertDialog = alertBuilder.create();
-    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-        if (finish) {
-          dialog.dismiss();
-          finish();
-        }
-      }
-    };
-    String ok = getString(android.R.string.ok);
-    alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, listener);
-    alertDialog.show();
-  }
 }
