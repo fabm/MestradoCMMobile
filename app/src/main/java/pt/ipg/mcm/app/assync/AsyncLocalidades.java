@@ -20,9 +20,11 @@ public class AsyncLocalidades extends AsyncTask<Object, String, List<LocalidadeR
   private boolean paginaCompleta;
   private static final int MAX = 50;
   private int page;
+  private String host;
 
 
-  public AsyncLocalidades() {
+  public AsyncLocalidades(String host) {
+    this.host = host;
   }
 
 
@@ -55,9 +57,9 @@ public class AsyncLocalidades extends AsyncTask<Object, String, List<LocalidadeR
         lFilter = "/" + filter;
       }
       String path = "/services/rest/localidade/filtro/" + page + lFilter;
-      Log.v(TAG, "path:" + Constants.SERVER_URL + path);
+      Log.v(TAG, "path:" + host + path);
       GetLocalidadeRest getLocalidadeRest = App.get().getNewRestJsonCallBuilder()
-          .serverUrl(Constants.SERVER_URL)
+          .serverUrl(host)
           .path(path)
           .get()
           .build()

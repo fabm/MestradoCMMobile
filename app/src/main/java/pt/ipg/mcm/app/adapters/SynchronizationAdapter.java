@@ -63,6 +63,7 @@ public class SynchronizationAdapter {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putLong(Constants.SYNC_INDEX, sync);
                 editor.commit();
+                progressDialog.dismiss();
                 callOnSuccess();
             }
 
@@ -79,11 +80,11 @@ public class SynchronizationAdapter {
         }.execute(getSharedLogin(), getSharedPassword());
     }
 
-    private void callOnError(String error) {
+    protected void callOnError(String error) {
         alerteMessage(error, false);
     }
 
-    private void callOnSuccess() {
+    protected void callOnSuccess() {
         alerteMessage("Sincronização feita com sucesso", true);
     }
 

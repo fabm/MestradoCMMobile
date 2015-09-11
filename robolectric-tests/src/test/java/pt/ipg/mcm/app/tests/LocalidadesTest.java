@@ -1,6 +1,5 @@
 package pt.ipg.mcm.app.tests;
 
-import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,7 +89,7 @@ public class LocalidadesTest {
   }
 
   private AsyncLocalidades getAsyncLocalidades(final AsyncExecutionType type) {
-    return new AsyncLocalidades() {
+    return new AsyncLocalidades(App.get().getSharedPreferences(this, "host").getString("host", "")) {
       @Override
       protected void onPostExecute(List<LocalidadeRest> localidadeList) {
         Assert.assertEquals(AsyncExecutionType.SUCCESS, type);

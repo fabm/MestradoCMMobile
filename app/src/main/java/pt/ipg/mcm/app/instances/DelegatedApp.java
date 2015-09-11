@@ -36,4 +36,5 @@ public interface DelegatedApp {
     ProgressDialog getProgressDialog(Context context, CharSequence title, CharSequence message);
 
     DatePickerDialog getDatePicker(Context context, DatePickerDialog.OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth);
+
 }

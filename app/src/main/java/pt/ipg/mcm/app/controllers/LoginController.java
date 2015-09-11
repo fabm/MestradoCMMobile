@@ -10,15 +10,17 @@ import pt.ipg.mcm.calls.WebserviceException;
 import pt.ipg.mcm.calls.client.model.RetornoRest;
 
 public class LoginController {
-  private Context context;
+    private final String host;
+    private Context context;
 
   public LoginController(Context context) {
     this.context = context;
+      host = App.get().getSharedPreferences(context, "host").getString("host", "");
   }
 
   public void remoteLogin(AuthBasicUtf8 authBasicUtf8) {
     RestJsonCall restJsonCall = App.get().getNewRestJsonCallBuilder()
-        .serverUrl(Constants.SERVER_URL)
+        .serverUrl(host)
         .path("/services/rest/authentication/login")
         .get()
         .auth(authBasicUtf8)
@@ -40,7 +42,7 @@ public class LoginController {
 
   public boolean tryConnect(boolean saveInPreferences, AuthBasicUtf8 authBasicUtf8) {
     RestJsonCall restJsonCall = App.get().getNewRestJsonCallBuilder()
-        .serverUrl(Constants.SERVER_URL)
+        .serverUrl(host)
         .path("/services/rest/authentication/login")
         .get()
         .auth(authBasicUtf8)

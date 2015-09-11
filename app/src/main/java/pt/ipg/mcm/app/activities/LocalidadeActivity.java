@@ -106,7 +106,8 @@ public class LocalidadeActivity extends Activity {
   }
 
   private void createAsyncLocalidades(final int page, String filter) {
-    asyncLocalidades = new AsyncLocalidades() {
+
+    asyncLocalidades = new AsyncLocalidades(App.get().getSharedPreferences(this,"host").getString("host","")) {
 
       @Override
       protected void onPostExecute(List<LocalidadeRest> localidades) {

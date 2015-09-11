@@ -15,7 +15,8 @@ public class AccoesPrincipaisAdapter extends ArrayAdapter<String> {
       "Sincronizar",
       "Criar encomenda",
       "Ver as minhas encomendas",
-      "limpar dados"
+      "Limpar dados",
+      "Configurar host"
   );
 
   public AccoesPrincipaisAdapter(Context context) {

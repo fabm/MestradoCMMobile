@@ -11,12 +11,13 @@ import pt.ipg.mcm.app.R;
 import pt.ipg.mcm.app.bd.DaoMaster;
 import pt.ipg.mcm.app.bd.DaoSession;
 import pt.ipg.mcm.app.bd.Encomenda;
+import pt.ipg.mcm.app.grouped.resources.EstadoEncomenda;
 import pt.ipg.mcm.app.instances.App;
 import pt.ipg.mcm.app.util.Formatter;
-import pt.ipg.mcm.calls.client.DateHelper;
 
 import java.util.List;
 
+import static pt.ipg.mcm.app.grouped.resources.EstadoEncomenda.getEstado;
 import static pt.ipg.mcm.app.util.Formatter.centsToEuros;
 
 public class ListAdapterEncomendas extends BaseAdapter {
@@ -25,11 +26,8 @@ public class ListAdapterEncomendas extends BaseAdapter {
   protected List<Encomenda> data;
 
   public ListAdapterEncomendas(Context context) {
-    SQLiteDatabase db = App.get().getOpenHelper(context).getReadableDatabase();
-    DaoSession session = new DaoMaster(db).newSession();
-    data = session.getEncomendaDao().loadAll();
-    db.close();
     this.context = context;
+    load();
   }
   @Override
   public int getCount() {
@@ -53,16 +51,24 @@ public class ListAdapterEncomendas extends BaseAdapter {
       LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       view = inflater.inflate(R.layout.item_encomenda, parent, false);
     }
-    TextView data = (TextView) view.findViewById(R.id.leVlDataEntrega);
-    TextView preco = (TextView) view.findViewById(R.id.leVlPrecoTotal);
+    TextView data = (TextView) view.findViewById(R.id.ieVlDataEntrega);
+    TextView preco = (TextView) view.findViewById(R.id.ieVlPrecoTotal);
+    TextView estado = (TextView) view.findViewById(R.id.ieVlStatus);
 
     Encomenda item = (Encomenda) getItem(pos);
 
 
     data.setText(Formatter.dateSimpleToString(item.getDataEntrega()));
     preco.setText(centsToEuros(item.getPrecoTotal()));
+    estado.setText(getEstado(item.getEstado()));
 
     return view;
   }
 
+  public void load() {
+    SQLiteDatabase db = App.get().getOpenHelper(context).getReadableDatabase();
+    DaoSession session = new DaoMaster(db).newSession();
+    data = session.getEncomendaDao().loadAll();
+    db.close();
+  }
 }

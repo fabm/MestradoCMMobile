@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/etQuantidadeValue"
+                    android:id="@+id/spaEtQuantidadeValue"
                     android:layout_column="1"/>
 
         </TableRow>

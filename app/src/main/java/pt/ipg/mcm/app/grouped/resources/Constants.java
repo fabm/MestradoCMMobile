@@ -4,7 +4,6 @@ package pt.ipg.mcm.app.grouped.resources;
 import pt.ipg.mcm.calls.AuthBasicUtf8;
 
 public interface Constants {
-    String SERVER_URL = "http://192.168.1.5:8080";
     AuthBasicUtf8 AUTH_BASIC_CONVIDADO = new AuthBasicUtf8("convidado", "convidado");
     String SHARED_SYNC = "shared-sync";
     String SYNC_INDEX = "sync-index";

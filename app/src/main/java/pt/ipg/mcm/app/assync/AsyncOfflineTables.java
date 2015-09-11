@@ -4,39 +4,26 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
-import de.greenrobot.dao.query.QueryBuilder;
-import pt.ipg.mcm.app.bd.Categoria;
-import pt.ipg.mcm.app.bd.DaoMaster;
-import pt.ipg.mcm.app.bd.Encomenda;
-import pt.ipg.mcm.app.bd.EncomendaDao;
-import pt.ipg.mcm.app.bd.EncomendaProduto;
-import pt.ipg.mcm.app.grouped.resources.Constants;
+import pt.ipg.mcm.app.bd.*;
 import pt.ipg.mcm.app.instances.App;
 import pt.ipg.mcm.calls.AuthBasicUtf8;
 import pt.ipg.mcm.calls.RestJsonCall;
 import pt.ipg.mcm.calls.WebserviceException;
-import pt.ipg.mcm.calls.client.DateHelper;
 import pt.ipg.mcm.calls.client.model.categoria.CategoriaRest;
 import pt.ipg.mcm.calls.client.model.categoria.GetCategoriaDesyncRest;
 import pt.ipg.mcm.calls.client.model.delete.GetRegistosAApagarRest;
 import pt.ipg.mcm.calls.client.model.delete.RegistoAApagarRest;
-import pt.ipg.mcm.calls.client.model.encomendas.EncomendaIdsRest;
-import pt.ipg.mcm.calls.client.model.encomendas.EncomendaRest;
-import pt.ipg.mcm.calls.client.model.encomendas.GetMinhasEncomendasRest;
-import pt.ipg.mcm.calls.client.model.encomendas.ProdutoEncomendadoRest;
-import pt.ipg.mcm.calls.client.model.encomendas.UpdateEncomendasRestIn;
-import pt.ipg.mcm.calls.client.model.encomendas.UpdateEncomendasRestOut;
+import pt.ipg.mcm.calls.client.model.encomendas.*;
 import pt.ipg.mcm.calls.client.model.produtos.GetProdutoDesyncRest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class AsyncOfflineTables extends AsyncTask<String, String, Boolean> {
     private Context context;
     private String error;
     private long sync;
+    private Sincronizador sincronizador;
 
     public AsyncOfflineTables(Context context, long sync) {
         this.context = context;
@@ -47,13 +34,15 @@ public abstract class AsyncOfflineTables extends AsyncTask<String, String, Boole
     protected Boolean doInBackground(String... params) {
         Log.v("AsyncOfflineTables", "inicio");
 
+        String host = App.get().getSharedPreferences(context, "host").getString("host", "");
+
         RestJsonCall.Builder builder =
                 App.get()
                         .getNewRestJsonCallBuilder()
-                        .serverUrl(Constants.SERVER_URL);
+                        .serverUrl(host);
 
 
-        Sincronizador sincronizador = new Sincronizador(context);
+        sincronizador = new Sincronizador(context);
 
         long maxSync = 0;
 
@@ -102,41 +91,21 @@ public abstract class AsyncOfflineTables extends AsyncTask<String, String, Boole
             maxSync = Math.max(getMinhasEncomendasRest.getMaxSync(), maxSync);
             sincronizador.setGetMinhasEncomendasRest(getMinhasEncomendasRest);
 
-            List<Encomenda> encomendas = encomendasDesync();
+            final AddAndUpdateEncomendasInRest addAndUpdateEncomendasInRest = getAddAndUpdateEncomendasInRest();
 
-            Map<Long, Encomenda> encomendasMap = new HashMap();
-            UpdateEncomendasRestIn updateEncomendasRestIn = new UpdateEncomendasRestIn();
-            List<EncomendaRest> encomendaRestList = updateEncomendasRestIn.createEncomendas();
-            for (Encomenda encomenda : encomendas) {
-                encomendasMap.put(encomenda.getId(), encomenda);
-                EncomendaRest encomendaRest = new EncomendaRest();
-                String date = new DateHelper(DateHelper.Format.COMPACT).toString(encomenda.getDataEntrega());
-                encomendaRest.setDate(date);
-                List<ProdutoEncomendadoRest> produtoEncomendadoRestList = encomendaRest.createProdutoEncomendadoRests();
-
-                for (EncomendaProduto encomendaProduto : encomenda.getEncomendaProdutoList()) {
-                    ProdutoEncomendadoRest produtoEncomendadoRest = new ProdutoEncomendadoRest();
-                    produtoEncomendadoRest.setIdProduto(encomendaProduto.getIdProduto());
-                    produtoEncomendadoRest.setQuandidade(encomendaProduto.getQuantidade());
-                    produtoEncomendadoRestList.add(produtoEncomendadoRest);
-                }
-                encomendaRestList.add(encomendaRest);
-            }
-
-            UpdateEncomendasRestOut updateEncomendasRestOut = builder
+            AddEncomendasOutRest addEncomendasOutRest = builder
                     .path("/services/rest/encomenda/update")
-                    .post(updateEncomendasRestIn)
+                    .post(addAndUpdateEncomendasInRest)
                     .build()
-                    .getResponse(UpdateEncomendasRestOut.class);
+                    .getResponse(AddEncomendasOutRest.class);
 
             publishProgress("A carregar encomendas no servidor");
             Log.v("AsyncOfflineTables", "update");
-            for (EncomendaIdsRest encomendaIdsRest : updateEncomendasRestOut.getEncomendaIdseRests()) {
-                encomendasMap.get((long) encomendaIdsRest.getClientId())
+
+            for (EncomendaOutRest encomendaIdsRest : addEncomendasOutRest.getEncomendaOutRestList()) {
+                sincronizador.getIdsMap().get((long) encomendaIdsRest.getClientId())
                         .setServerId(encomendaIdsRest.getServerId());
             }
-
-            sincronizador.setEncomendasToUpdateServerId(encomendas);
             sincronizador.sincronizar();
             sync = maxSync;
         } catch (WebserviceException e) {
@@ -154,27 +123,70 @@ public abstract class AsyncOfflineTables extends AsyncTask<String, String, Boole
         return true;
     }
 
-    private List<Encomenda> encomendasDesync() {
+    private AddAndUpdateEncomendasInRest getAddAndUpdateEncomendasInRest() {
+        AddAndUpdateEncomendasInRest addAndUpdateIn = new AddAndUpdateEncomendasInRest();
+
+        List<EncomendaInRest> encomendaInRestList = new ArrayList<>();
+
+
         SQLiteDatabase db = App.get().getOpenHelper(context).getReadableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
-        QueryBuilder<Encomenda> qb = daoMaster
-                .newSession()
-                .getEncomendaDao()
-                .queryBuilder();
 
-        List<Encomenda> list = qb.where(
-                qb.or(EncomendaDao.Properties.ServerId.isNull(), EncomendaDao.Properties.Sync.eq(false))
-        )
+        DaoSession session = daoMaster.newSession();
+
+        List<Encomenda> encomendas = session
+                .getEncomendaDao()
+                .queryBuilder()
+                .where(EncomendaDao.Properties.ServerId.isNull())
                 .build()
                 .list();
 
-        for (Encomenda encomenda : list) {
+        for (Encomenda encomenda : encomendas) {
             encomenda.getEncomendaProdutoList();
         }
 
-        db.close();
 
-        return list;
+        for (Encomenda encomenda : encomendas) {
+            sincronizador.getIdsMap().put(encomenda.getId(), encomenda);
+
+
+
+            EncomendaInRest encomendaRest = new EncomendaInRest();
+            encomendaRest.setDataEntrega(encomenda.getDataEntrega());
+            List<ProdutoEncomendadoRest> produtoEncomendadoRestList = new ArrayList<>();
+
+            for (EncomendaProduto encomendaProduto : encomenda.getEncomendaProdutoList()) {
+                ProdutoEncomendadoRest produtoEncomendadoRest = new ProdutoEncomendadoRest();
+                produtoEncomendadoRest.setIdProduto(encomendaProduto.getIdProduto());
+                produtoEncomendadoRest.setQuantidade(encomendaProduto.getQuantidade());
+                produtoEncomendadoRestList.add(produtoEncomendadoRest);
+            }
+            encomendaRest.setProdutoEncomendadoRestList(produtoEncomendadoRestList);
+            encomendaInRestList.add(encomendaRest);
+        }
+        addAndUpdateIn.setEncomendaInRestList(encomendaInRestList);
+
+
+        encomendas = session
+                .getEncomendaDao()
+                .queryBuilder()
+                .where(EncomendaDao.Properties.Sync.eq(false))
+                .build()
+                .list();
+
+        List<EstadoEncomendaInRest> estadoEncomendaInRestList = new ArrayList<>();
+
+        for(Encomenda encomenda:encomendas){
+            EstadoEncomendaInRest estadoEncomenda = new EstadoEncomendaInRest();
+            estadoEncomenda.setIdEncomenda(encomenda.getServerId());
+            estadoEncomenda.setEstado(encomenda.getEstado());
+            estadoEncomendaInRestList.add(estadoEncomenda);
+        }
+
+        addAndUpdateIn.setEstadoEncomendaInRestList(estadoEncomendaInRestList);
+
+        db.close();
+        return addAndUpdateIn;
     }
 
     private DeletedEntities readEntitiesToDelete(GetRegistosAApagarRest registosAApagarRest) {

@@ -29,13 +29,14 @@
         <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="2015-01-01"
                   android:id="@+id/dmeaVlDataCriacao" android:layout_row="0" android:layout_column="1"
                   android:paddingLeft="10dp" android:gravity="center_vertical"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="A aguardar"
+        <TextView android:layout_width="100dp" android:layout_height="50dp" android:text="Entrega conf. padeiro"
                   android:id="@+id/dmeaVlEstado" android:layout_row="2" android:layout_column="1"
-                  android:paddingLeft="10dp" android:gravity="center_vertical"/>
-        <TextView android:layout_width="100dp" android:layout_height="30dp" android:text="Total"
+                  android:paddingLeft="10dp" android:gravity="center_vertical" android:autoText="false"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="Total"
                   android:id="@+id/dmeaLbTotal" android:layout_row="0" android:layout_column="2"
                   android:gravity="center_vertical|right" android:layout_rowSpan="3"
-                  android:layout_gravity="center_vertical" android:textAppearance="?android:attr/textAppearanceLarge"/>
+                  android:layout_gravity="center_vertical|right" android:textAppearance="?android:attr/textAppearanceLarge"
+                  android:layout_columnWeight="1"/>
         <TextView android:layout_width="wrap_content" android:layout_height="30dp" android:text="50 €"
                   android:id="@+id/dmeaVlTotal" android:layout_row="0" android:layout_column="3"
                   android:paddingLeft="10dp" android:gravity="center_vertical" android:layout_rowSpan="3"
@@ -53,8 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="cancelar encomenda"
-                android:id="@+id/dmeaBtCancelar" android:layout_row="4" android:layout_column="1"
-                android:layout_gravity="center_horizontal" android:layout_columnSpan="2"
+                android:id="@+id/dmeaBtCancelar" android:layout_row="4" android:layout_column="0"
+                android:layout_gravity="center_horizontal" android:layout_columnSpan="4"
                 android:layout_marginBottom="10dp"/>
     </GridLayout>
 </LinearLayout>

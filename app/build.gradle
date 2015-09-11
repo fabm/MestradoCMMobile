@@ -4,6 +4,7 @@ apply plugin: 'idea'
 
 repositories {
     mavenLocal()
+    maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
 }
 
 android {
@@ -48,6 +49,10 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile 'com.android.support:support-annotations:21.0.0'
     compile group:'MestradoCM', name:'rest-client', version:'1.0-SNAPSHOT'
+    compile ('com.fortysevendeg.swipelistview:swipelistview:1.0-SNAPSHOT@aar') {
+        transitive = true
+    }
+
 
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'

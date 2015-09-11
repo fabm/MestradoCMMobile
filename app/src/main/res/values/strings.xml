@@ -14,5 +14,6 @@
     <string name="btRegistarLabel">registe-se aqui</string>
     <string name="title_activity_create_encomenda">Criando encomenda</string>
     <string name="title_activity_selecionar_produto">SelecionarProduto</string>
+    <string name="title_activity_host_url">HostUrl</string>
 
 </resources>

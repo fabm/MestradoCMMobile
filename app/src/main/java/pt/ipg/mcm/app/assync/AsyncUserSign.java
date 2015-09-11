@@ -22,8 +22,9 @@ public abstract class AsyncUserSign extends AsyncTask<CreateUserClientRestIn, St
 
   @Override
   protected Retorno doInBackground(CreateUserClientRestIn... createUserClientRestInArray) {
+    String host = App.get().getSharedPreferences(context, "host").getString("host", "");
     RestJsonCall call = App.get().getNewRestJsonCallBuilder()
-        .serverUrl(Constants.SERVER_URL)
+        .serverUrl(host)
         .path("/services/rest/user/create")
         .post(createUserClientRestInArray)
         .auth(Constants.AUTH_BASIC_CONVIDADO)

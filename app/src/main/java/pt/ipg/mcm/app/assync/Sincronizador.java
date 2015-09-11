@@ -13,6 +13,7 @@ import pt.ipg.mcm.app.bd.Produto;
 import pt.ipg.mcm.app.instances.App;
 import pt.ipg.mcm.calls.client.DateHelper;
 import pt.ipg.mcm.calls.client.model.encomendas.EncomendaDetalheRest;
+import pt.ipg.mcm.calls.client.model.encomendas.EncomendaOutRest;
 import pt.ipg.mcm.calls.client.model.encomendas.GetMinhasEncomendasRest;
 import pt.ipg.mcm.calls.client.model.encomendas.ProdutoEncomendadoComPrecoRest;
 import pt.ipg.mcm.calls.client.model.produtos.GetProdutoDesyncRest;
@@ -21,7 +22,9 @@ import pt.ipg.mcm.calls.client.model.produtos.ProdutoRest;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static pt.ipg.mcm.app.bd.EncomendaDao.Properties.ServerId;
 
@@ -29,7 +32,7 @@ public class Sincronizador {
   private DeletedEntities deletedEntities;
   private List<Categoria> categorias;
   private GetProdutoDesyncRest produtos;
-  private List<Encomenda> encomendasToUpdateServerId;
+  private Map<Long,Encomenda> idsMap;
 
 
   private DaoSession session;
@@ -38,8 +41,12 @@ public class Sincronizador {
 
   public Sincronizador(Context context) {
     this.context = context;
+    idsMap = new HashMap<>();
   }
 
+  public Map<Long, Encomenda> getIdsMap() {
+    return idsMap;
+  }
 
   public DeletedEntities getDeletedEntities() {
     return deletedEntities;
@@ -68,79 +75,81 @@ public class Sincronizador {
 
   private void sincronizaBdFromServer() {
     session.runInTx(new Runnable() {
-      @Override
-      public void run() {
-        for (Long encomendaId : getDeletedEntities().getIdsEncomendas()) {
-          session.getEncomendaDao().deleteByKey(encomendaId);
-        }
-        for (Long produtoId : getDeletedEntities().getIdsProdutos()) {
-          session.getProdutoDao().deleteByKey(produtoId);
-        }
-        for (Long categoriaId : getDeletedEntities().getIdsCategorias()) {
-          session.getProdutoDao().deleteByKey(categoriaId);
-        }
-        for (Categoria categoria : getCategorias()) {
-          session.getCategoriaDao().insertOrReplace(categoria);
-        }
-        for (ProdutoRest produtoRest : getProdutos().getProdutoRestList()) {
-          Produto produto = new Produto();
-          produto.setIdCategoria(produtoRest.getCategoria());
-          produto.setId(produtoRest.getId());
-          produto.setNome(produtoRest.getNome());
-          produto.setPrecoActual(produtoRest.getPrecoUnitario());
-          if (produtoRest.getFoto() != null) {
-            produto.setFoto(Base64.decode(produtoRest.getFoto().getBytes(),Base64.DEFAULT));
-          }
-          produto.setSync(true);
-          session.getProdutoDao().insertOrReplace(produto);
-        }
-
-        for (EncomendaDetalheRest encomendaDetalheRest : getMinhasEncomendasRest.getEncomendaDetalheRestList()) {
-          Encomenda encomenda = new Encomenda();
-          encomenda.setServerId(encomendaDetalheRest.getId());
-          encomenda.setEstado(encomendaDetalheRest.getEstado());
-          encomenda.setObservacoes(encomendaDetalheRest.getObservacoes());
-          long precoTotal = 0L;
-
-          try {
-            encomenda.setDataEntrega(new DateHelper(DateHelper.Format.COMPACT).toDate(encomendaDetalheRest.getDataEntrega()));
-            encomenda.setDataCriacao(new DateHelper(DateHelper.Format.COMPACT).toDate(encomendaDetalheRest.getDataCriacao()));
-          } catch (ParseException e) {
-            throw new IllegalStateException(e);
-          }
-
-          CloseableListIterator<Encomenda> li = session.getEncomendaDao().queryBuilder()
-              .where(ServerId.eq(encomenda.getServerId()))
-              .build().listIterator();
-          if (li.hasNext()) {
-            continue;
-          } else {
-            session.getEncomendaDao().insert(encomenda);
-          }
-          if (li != null) {
-            try {
-              li.close();
-            } catch (IOException e) {
-              e.printStackTrace();
+        @Override
+        public void run() {
+            for (Long encomendaId : getDeletedEntities().getIdsEncomendas()) {
+                session.getEncomendaDao().deleteByKey(encomendaId);
             }
-          }
-          for (ProdutoEncomendadoComPrecoRest produtoEncomendadoComPrecoRest : encomendaDetalheRest.getProdutosEncomendados()) {
-            EncomendaProduto encomendaProduto = new EncomendaProduto();
-            encomendaProduto.setIdEncomenda(encomenda.getId());
-            int precoUnitarioCentimos = produtoEncomendadoComPrecoRest.getPreco();
-            encomendaProduto.setPrecoUnitario(precoUnitarioCentimos);
-            encomendaProduto.setQuantidade(produtoEncomendadoComPrecoRest.getQuandidade());
-            encomendaProduto.setIdProduto(produtoEncomendadoComPrecoRest.getIdProduto());
-            precoTotal+= precoUnitarioCentimos*encomendaProduto.getQuantidade();
-            session.getEncomendaProdutoDao().insertOrReplace(encomendaProduto);
-          }
-          encomenda.setPrecoTotal(precoTotal);
-          session.getEncomendaDao().update(encomenda);
+            for (Long produtoId : getDeletedEntities().getIdsProdutos()) {
+                session.getProdutoDao().deleteByKey(produtoId);
+            }
+            for (Long categoriaId : getDeletedEntities().getIdsCategorias()) {
+                session.getProdutoDao().deleteByKey(categoriaId);
+            }
+            for (Categoria categoria : getCategorias()) {
+                session.getCategoriaDao().insertOrReplace(categoria);
+            }
+            for (ProdutoRest produtoRest : getProdutos().getProdutoRestList()) {
+                Produto produto = new Produto();
+                produto.setIdCategoria(produtoRest.getCategoria());
+                produto.setId(produtoRest.getId());
+                produto.setNome(produtoRest.getNome());
+                produto.setPrecoActual(produtoRest.getPrecoUnitario());
+                try {
+                    produto.setFoto(Base64.decode(produtoRest.getFoto().getBytes(), Base64.DEFAULT));
+                } catch (Exception e) {
+                    produto.setFoto(null);
+                }
+                produto.setSync(true);
+                session.getProdutoDao().insertOrReplace(produto);
+            }
+
+            for (EncomendaDetalheRest encomendaDetalheRest : getMinhasEncomendasRest.getEncomendaDetalheRestList()) {
+                Encomenda encomenda = new Encomenda();
+                encomenda.setServerId(encomendaDetalheRest.getId());
+                encomenda.setEstado(encomendaDetalheRest.getEstado());
+                encomenda.setObservacoes(encomendaDetalheRest.getObservacoes());
+                long precoTotal = 0L;
+
+                try {
+                    encomenda.setDataEntrega(new DateHelper(DateHelper.Format.COMPACT).toDate(encomendaDetalheRest.getDataEntrega()));
+                    encomenda.setDataCriacao(new DateHelper(DateHelper.Format.COMPACT).toDate(encomendaDetalheRest.getDataCriacao()));
+                } catch (ParseException e) {
+                    throw new IllegalStateException(e);
+                }
+
+                CloseableListIterator<Encomenda> li = session.getEncomendaDao().queryBuilder()
+                        .where(ServerId.eq(encomenda.getServerId()))
+                        .build().listIterator();
+                if (li.hasNext()) {
+                    continue;
+                } else {
+                    session.getEncomendaDao().insert(encomenda);
+                }
+                if (li != null) {
+                    try {
+                        li.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                for (ProdutoEncomendadoComPrecoRest produtoEncomendadoComPrecoRest : encomendaDetalheRest.getProdutosEncomendados()) {
+                    EncomendaProduto encomendaProduto = new EncomendaProduto();
+                    encomendaProduto.setIdEncomenda(encomenda.getId());
+                    int precoUnitarioCentimos = produtoEncomendadoComPrecoRest.getPreco();
+                    encomendaProduto.setPrecoUnitario(precoUnitarioCentimos);
+                    encomendaProduto.setQuantidade(produtoEncomendadoComPrecoRest.getQuantidade());
+                    encomendaProduto.setIdProduto(produtoEncomendadoComPrecoRest.getIdProduto());
+                    precoTotal += precoUnitarioCentimos * encomendaProduto.getQuantidade();
+                    session.getEncomendaProdutoDao().insertOrReplace(encomendaProduto);
+                }
+                encomenda.setPrecoTotal(precoTotal);
+                session.getEncomendaDao().update(encomenda);
+            }
+            for (Encomenda encomenda : idsMap.values()) {
+                session.getEncomendaDao().update(encomenda);
+            }
         }
-        for (Encomenda encomenda : encomendasToUpdateServerId) {
-          session.getEncomendaDao().update(encomenda);
-        }
-      }
     });
   }
 
@@ -155,9 +164,6 @@ public class Sincronizador {
   }
 
 
-  public void setEncomendasToUpdateServerId(List<Encomenda> encomendasToUpdateServerId) {
-    this.encomendasToUpdateServerId = encomendasToUpdateServerId;
-  }
 
   public void setGetMinhasEncomendasRest(GetMinhasEncomendasRest getMinhasEncomendasRest) {
     this.getMinhasEncomendasRest = getMinhasEncomendasRest;

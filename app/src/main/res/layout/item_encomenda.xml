@@ -23,7 +23,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:text="01-01-2015"
-                        android:id="@+id/leVlDataEntrega"
+                        android:id="@+id/ieVlDataEntrega"
                         android:layout_column="1" android:layout_marginLeft="20dp"/>
 
         </TableRow>
@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:text="1.00 €"
-                        android:id="@+id/leVlPrecoTotal"
+                        android:id="@+id/ieVlPrecoTotal"
                         android:layout_column="1" android:layout_marginLeft="20dp"/>
         </TableRow>
         <TableRow
